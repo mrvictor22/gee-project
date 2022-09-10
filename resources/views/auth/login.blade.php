@@ -53,7 +53,7 @@
         <div class="form-outer text-center d-flex align-items-center">
           
           <div class="form-inner">
-          <img class="center" src="http://drive.google.com/uc?export=view&id=13bZzfw3zj8I9yFNgOkx_OehkA8B4pfr1"  width="300" height="100">
+          <img class="center" src="{{url('public/images/gee-logo.png')}}"  width="300" height="155">
             <div class="logo"><span>{{$general_setting->site_title}}</span></div>
             @if(session()->has('delete_message'))
             <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('delete_message') }}</div> 
