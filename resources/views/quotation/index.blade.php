@@ -115,6 +115,7 @@
                     {{ Form::close() }}
                 </div>
                 <div class="col-md-6">
+                    <img class="modal-title text-center container-fluid" src="{{url('public/images/gee-logo.png')}}" width="100" height="180">
                     <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
                 </div>
                 <div class="col-md-3">
@@ -141,8 +142,35 @@
                 <tbody>
                 </tbody>
             </table>
-            <div id="quotation-footer" class="modal-body"></div>
+
+            <div id="quotation-footer" class="modal-body">
+
+            </div>
+          <ul>
+              <li>Se solicita un depósito de seguridad por daños o pérdidas al equipo de $100.00 a la
+                  aceptación del contrato. Este será reintegrado de encontrarse todo en buen estado</li>
+              <br>
+              <h5>CONDICIONES</h5>
+              <li>La vigencia de esta cotización es de siete días después de la fecha enviada,
+                  posterior a esta fecha se debe recotizar pues los precios pueden variar de acuerdo con
+                  demandas de fechas, productos, flores, etc</li>
+              <li>Pago con tarjeta de crédito + 5.00%</li>
+              <li>Términos de pago: 50% anticipado una vez aprobada la cotización, por medio de
+                  transferencia al No. de cuenta: 201410321 de CUENTA CORRIENTE del BANCO DE
+                  AMERICA CENTRAL a Nombre de GEE El Salvador S.A de C.V o EFECTIVO y 50%
+                  restante se deberán liquidar dos días previos a la fecha del evento. La propuesta no
+                  incluye IVA</li>
+              <li>Cualquier gasto adicional que surja en el día del evento se deberá liquidar ese
+                  mismo día, en caso de gastos extras a terceros, deberán ser liquidados por EL CLIENTE</li>
+              <li>En caso de cancelación de los servicios, por cualquiera de las dos partes, objeto
+                  de este contrato, GEE EL SALVADOR S.A DE C.V no podrá reembolsar ningún pago
+                  hecho a la fecha de cancelación por concepto de administración y de disponibilidad de
+                  fecha</li>
+          </ul>
+
+
       </div>
+
     </div>
 </div>
 
@@ -324,8 +352,9 @@
         $('.buttons-delete').addClass('d-none');
 
     function quotationDetails(quotation){
+        console.log(quotation)
         $('input[name="quotation_id"]').val(quotation[13]);
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+quotation[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+quotation[1]+'<br><strong>{{trans("file.Status")}}: </strong>'+quotation[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+quotation[3]+'<br>'+quotation[4]+'<br>'+quotation[5]+'<br>'+quotation[6]+'<br>'+quotation[7]+'<br>'+quotation[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+quotation[9]+'<br>'+quotation[10]+'<br>'+quotation[11]+'<br>'+quotation[12]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+quotation[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+quotation[1]+'<br><strong>{{trans("file.Status")}}: </strong>'+quotation[2];
         $.get('quotations/product_quotation/' + quotation[13], function(data){
             $(".product-quotation-list tbody").remove();
             var name_code = data[0];

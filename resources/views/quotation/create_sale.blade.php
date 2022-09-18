@@ -343,6 +343,16 @@
                                         </div>
                                     </div>
                                 </div>
+                              <div class="row mt-2">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>
+                                              <strong>Fecha Realizada:</strong>
+                                          </label>
+                                          <input type="text" id="datepicker1" class="form-control" name="fecha_realizada"></p>
+                                      </div>
+                                  </div>
+                              </div>
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -440,6 +450,11 @@
     </div>
 </section>
 <script type="text/javascript">
+    $( function() {
+        $( "#datepicker1" ).datepicker({
+            format: 'dd/mm/yyyy'
+        });
+    } );
 $("#payment").hide();
 $(".card-element").hide();
 $("#gift-card").hide();

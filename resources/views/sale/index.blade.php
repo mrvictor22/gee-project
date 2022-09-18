@@ -18,7 +18,8 @@
             <thead>
                 <tr>
                     <th class="not-exported"></th>
-                    <th>{{trans('file.Date')}}</th>
+                    <th>Fecha de registro</th>
+                    <th>Fecha de entrega</th>
                     <th>{{trans('file.reference')}}</th>
                     <th>{{trans('file.Biller')}}</th>
                     <th>{{trans('file.customer')}}</th>
@@ -36,6 +37,8 @@
             <tfoot class="tfoot active">
                 <th></th>
                 <th>{{trans('file.Total')}}</th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -676,6 +679,7 @@
         "columns": [
             {"data": "key"},
             {"data": "date"},
+            {"data": "date_r"},
             {"data": "reference_no"},
             {"data": "biller"},
             {"data": "customer"},
@@ -813,21 +817,22 @@
         if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
             var rows = dt_selector.rows( '.selected' ).indexes();
 
-            $( dt_selector.column(7).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
             $( dt_selector.column(8).footer() ).html(dt_selector.cells( rows, 8, { page: 'current' } ).data().sum().toFixed(2));
-            $( dt_selector.column(9 ).footer() ).html(dt_selector.cells( rows,9, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column(9).footer() ).html(dt_selector.cells( rows, 9, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column(10 ).footer() ).html(dt_selector.cells( rows,10, { page: 'current' } ).data().sum().toFixed(2));
         }
         else {
-            $( dt_selector.column( 7  ).footer() ).html(dt_selector.cells( rows,7 , { page: 'current' } ).data().sum().toFixed(2));
             $( dt_selector.column( 8  ).footer() ).html(dt_selector.cells( rows,8 , { page: 'current' } ).data().sum().toFixed(2));
-            $( dt_selector.column( 9 ).footer() ).html(dt_selector.cells( rows, 9, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 9  ).footer() ).html(dt_selector.cells( rows,9 , { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 10 ).footer() ).html(dt_selector.cells( rows, 10, { page: 'current' } ).data().sum().toFixed(2));
         }
     }
 
     function saleDetails(sale){
         $("#sale-details input[name='sale_id']").val(sale[13]);
 
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
+        console.log(sale);
+        var htmltext = '<strong>Fecha de registro: </strong>'+sale[0] +'<br><strong>Fecha de entrega: </strong>'+sale[30] +'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
         $.get('sales/product_sale/' + sale[13], function(data){
             $(".product-sale-list tbody").remove();
             var name_code = data[0];
