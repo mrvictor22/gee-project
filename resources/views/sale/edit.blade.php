@@ -295,6 +295,14 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
+                                                <strong>Fecha Realizada:</strong>
+                                            </label>
+                                            <input type="text" id="datepicker1" class="form-control" name="fecha_realizada" value="{{$lims_sale_data->fecha_realizada}}"></p>
+                                        </div>
+                                    </div>
                                     @if($lims_sale_data->coupon_id)
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -469,6 +477,11 @@ for(rowindex  =0; rowindex <= rownumber; rowindex++){
 $('.selectpicker').selectpicker({
     style: 'btn-link',
 });
+$( function() {
+    $( "#datepicker1" ).datepicker({
+        format: 'dd/mm/yyyy'
+    });
+} );
 
 $('[data-toggle="tooltip"]').tooltip();
 
