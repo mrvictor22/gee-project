@@ -115,13 +115,14 @@
                     {{ Form::close() }}
                 </div>
                 <div class="col-md-6">
-                    <img class="modal-title text-center container-fluid" src="{{url('public/images/gee-logo.png')}}" width="100" height="180">
+                    <img class="modal-title container-fluid" src="{{url('public/images/gee-logo.png')}}" style="position: absolute;float: left !important;right: 114%; top: 102%; width: 40% !important; height: auto !important;">
+                    <img class="modal-title container-fluid" src="{{url('public/images/idea.png')}}" style="position: absolute;left: 59%; top: 102%;  height: auto !important;">
                     <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
                 </div>
                 <div class="col-md-3">
                     <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 text-center" style="margin-top: 15%;">
                     <i style="font-size: 15px;">{{trans('file.Quotation Details')}}</i>
                 </div>
             </div>
@@ -212,7 +213,7 @@
           newWin.document.open();
           newWin.document.write('<link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css') ?>" type="text/css"><style type="text/css">@media print {.modal-dialog { max-width: 1000px;} }</style><body onload="window.print()">'+divToPrint.innerHTML+'</body>');
           newWin.document.close();
-          setTimeout(function(){newWin.close();},10);
+          // //setTimeout(function(){newWin.close();},10)
     });
 
     $('#quotation-table').DataTable( {
