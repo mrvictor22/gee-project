@@ -35,7 +35,7 @@
                     else
                         $status = trans('file.Sent');
                 ?>
-                <tr class="quotation-link" data-quotation='["{{date($general_setting->date_format, strtotime($quotation->created_at->toDateString()))}}", "{{$quotation->reference_no}}", "{{$status}}", "{{$quotation->biller->name}}", "{{$quotation->biller->company_name}}","{{$quotation->biller->email}}", "{{$quotation->biller->phone_number}}", "{{$quotation->biller->address}}", "{{$quotation->biller->city}}", "{{$quotation->customer->name}}", "{{$quotation->customer->phone_number}}", "{{$quotation->customer->address}}", "{{$quotation->customer->city}}", "{{$quotation->id}}", "{{$quotation->total_tax}}", "{{$quotation->total_discount}}", "{{$quotation->total_price}}", "{{$quotation->order_tax}}", "{{$quotation->order_tax_rate}}", "{{$quotation->order_discount}}", "{{$quotation->shipping_cost}}", "{{$quotation->grand_total}}", "{{$quotation->note}}", "{{$quotation->user->name}}", "{{$quotation->user->email}}"]'>
+                <tr class="quotation-link" data-quotation='["{{date($general_setting->date_format, strtotime($quotation->created_at->toDateString()))}}", "{{$quotation->reference_no}}", "{{$status}}", "{{$quotation->biller->name}}", "{{$quotation->biller->company_name}}","{{$quotation->biller->email}}", "{{$quotation->biller->phone_number}}", "{{$quotation->biller->address}}", "{{$quotation->biller->city}}", "{{$quotation->customer->name}}", "{{$quotation->customer->phone_number}}", "{{$quotation->customer->address}}", "{{$quotation->customer->city}}", "{{$quotation->id}}", "{{$quotation->total_tax}}", "{{$quotation->total_discount}}", "{{$quotation->total_price}}", "{{$quotation->order_tax}}", "{{$quotation->order_tax_rate}}", "{{$quotation->order_discount}}", "{{$quotation->shipping_cost}}", "{{$quotation->grand_total}}", "{{$quotation->note}}", "{{$quotation->user->name}}", "{{$quotation->user->email}}","{{ $quotation->customer->name }}","{{ $quotation->customer->phone_number }}"]'>
                     <td>{{$key}}</td>
                     <td>{{ date($general_setting->date_format, strtotime($quotation->created_at->toDateString())) . ' '. $quotation->created_at->toTimeString() }}</td>
                     <td>{{ $quotation->reference_no }}</td>
@@ -116,18 +116,25 @@
                 </div>
                 <div class="col-md-6">
                     <img class="modal-title container-fluid" src="{{url('public/images/gee-logo.png')}}" style="position: absolute;float: left !important;right: 114%; top: 102%; width: 40% !important; height: auto !important;">
-                    <img class="modal-title container-fluid" src="{{url('public/images/idea.png')}}" style="position: absolute;left: 59%; top: 102%;  height: auto !important;">
-                    <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                    <img class="modal-title container-fluid" src="{{url('public/images/idea.png')}}" style="position: absolute;left: 56%; top: 102%;  height: auto !important;">
                 </div>
                 <div class="col-md-3">
                     <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
+
                 <div class="col-md-12 text-center" style="margin-top: 15%;">
                     <i style="font-size: 15px;">{{trans('file.Quotation Details')}}</i>
                 </div>
             </div>
         </div>
-            <div id="quotation-content" class="modal-body">
+          <div class="row">
+              <div id="quotation-head" class="col-md-6" style="padding-left: 4%">
+              </div>
+              <div id="quotation-head2" class="col-md-6" style="text-align: right; padding-right: 4%">
+              </div>
+          </div>
+
+          <div id="quotation-content" class="modal-body">
             </div>
             <br>
             <table class="table table-bordered product-quotation-list">
@@ -136,8 +143,6 @@
                     <th>{{trans('file.product')}}</th>
                     <th>Qty</th>
                     <th>{{trans('file.Unit Price')}}</th>
-                    <th>{{trans('file.Tax')}}</th>
-                    <th>{{trans('file.Discount')}}</th>
                     <th>{{trans('file.Subtotal')}}</th>
                 </thead>
                 <tbody>
@@ -355,7 +360,9 @@
     function quotationDetails(quotation){
         console.log(quotation)
         $('input[name="quotation_id"]').val(quotation[13]);
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+quotation[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+quotation[1]+'<br><strong>{{trans("file.Status")}}: </strong>'+quotation[2];
+        var headdoc = '<strong> Nombre de Cliente: </strong>'+quotation[25]+'<br><strong>Numero de contacto:</strong>'+quotation[26];
+        var headdoc2 = '<strong> Gee El Salvador S.A de C.V</strong><br><strong>gee.experience@gmail.com</strong> <br><strong>instagram.com/gee.sv</strong>'
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+quotation[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+quotation[1]+'<br><strong>{{trans("file.Status")}}: </strong>'+quotation[2]+'<br><strong>Nombre de Cliente: </strong>'+quotation[25];
         $.get('quotations/product_quotation/' + quotation[13], function(data){
             $(".product-quotation-list tbody").remove();
             var name_code = data[0];
@@ -371,48 +378,45 @@
                 var cols = '';
                 cols += '<td><strong>' + (index+1) + '</strong></td>';
                 cols += '<td>' + name_code[index] + '</td>';
-                cols += '<td>' + qty[index] + ' ' + unit_code[index] + '</td>';
+                cols += '<td>' + qty[index]   + '</td>';
                 cols += '<td>' + parseFloat(subtotal[index] / qty[index]).toFixed(2) + '</td>';
-                cols += '<td>' + tax[index] + '(' + tax_rate[index] + '%)' + '</td>';
-                cols += '<td>' + discount[index] + '</td>';
-                cols += '<td>' + subtotal[index] + '</td>';
+                cols += '<td colspan=2>' + subtotal[index] + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
             });
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=4><strong>{{trans("file.Total")}}:</strong></td>';
-            cols += '<td>' + quotation[14] + '</td>';
-            cols += '<td>' + quotation[15] + '</td>';
+            cols += '<td colspan=4><strong>{{trans("file.Total")}} (no incluye IVA):</strong></td>';
+
             cols += '<td>' + quotation[16] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.Order Tax")}}:</strong></td>';
+            cols += '<td colspan=4><strong>{{trans("file.Order Tax")}}:</strong></td>';
             cols += '<td>' + quotation[17] + '(' + quotation[18] + '%)' + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.Order Discount")}}:</strong></td>';
+            cols += '<td colspan=4><strong>Descuento:</strong></td>';
             cols += '<td>' + quotation[19] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.Shipping Cost")}}:</strong></td>';
+            cols += '<td colspan=4><strong>{{trans("file.Shipping Cost")}}:</strong></td>';
             cols += '<td>' + quotation[20] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.grand total")}}:</strong></td>';
+            cols += '<td colspan=4><strong>{{trans("file.grand total")}}:</strong></td>';
             cols += '<td>' + quotation[21] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
@@ -420,6 +424,8 @@
             $("table.product-quotation-list").append(newBody);
         });
         var htmlfooter = '<p><strong>{{trans("file.Note")}}:</strong> '+quotation[22]+'</p><strong>{{trans("file.Created By")}}:</strong><br>'+quotation[23]+'<br>'+quotation[24];
+        $('#quotation-head').html(headdoc);
+        $('#quotation-head2').html(headdoc2);
         $('#quotation-content').html(htmltext);
         $('#quotation-footer').html(htmlfooter);
         $('#quotation-details').modal('show');
