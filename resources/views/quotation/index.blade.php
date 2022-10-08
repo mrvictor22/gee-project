@@ -380,7 +380,8 @@
                 cols += '<td>' + name_code[index] + '</td>';
                 cols += '<td>' + qty[index]   + '</td>';
                 cols += '<td>' + parseFloat(subtotal[index] / qty[index]).toFixed(2) + '</td>';
-                cols += '<td colspan=2>' + subtotal[index].toFixed(2) + '</td>';
+                var sub = parseFloat(subtotal[index])
+                cols += '<td colspan=2>' + sub.toFixed(2) + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
             });
