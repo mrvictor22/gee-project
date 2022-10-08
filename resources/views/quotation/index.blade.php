@@ -380,7 +380,7 @@
                 cols += '<td>' + name_code[index] + '</td>';
                 cols += '<td>' + qty[index]   + '</td>';
                 cols += '<td>' + parseFloat(subtotal[index] / qty[index]).toFixed(2) + '</td>';
-                cols += '<td colspan=2>' + subtotal[index] + '</td>';
+                cols += '<td colspan=2>' + subtotal[index].toFixed(2) + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
             });
@@ -388,8 +388,8 @@
             var newRow = $("<tr>");
             cols = '';
             cols += '<td colspan=4><strong>{{trans("file.Total")}} (no incluye IVA):</strong></td>';
-
-            cols += '<td>' + quotation[16] + '</td>';
+            var Total_noiva = parseFloat(quotation[16])
+            cols += '<td>' + Total_noiva.toFixed(2) + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
@@ -400,24 +400,13 @@
             newRow.append(cols);
             newBody.append(newRow);
 
-            var newRow = $("<tr>");
-            cols = '';
-            cols += '<td colspan=4><strong>Descuento:</strong></td>';
-            cols += '<td>' + quotation[19] + '</td>';
-            newRow.append(cols);
-            newBody.append(newRow);
 
-            var newRow = $("<tr>");
-            cols = '';
-            cols += '<td colspan=4><strong>{{trans("file.Shipping Cost")}}:</strong></td>';
-            cols += '<td>' + quotation[20] + '</td>';
-            newRow.append(cols);
-            newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
             cols += '<td colspan=4><strong>{{trans("file.grand total")}}:</strong></td>';
-            cols += '<td>' + quotation[21] + '</td>';
+            var Grand_tot = parseFloat(quotation[21])
+            cols += '<td>' + Grand_tot.toFixed(2) + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
