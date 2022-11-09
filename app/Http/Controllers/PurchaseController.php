@@ -183,6 +183,7 @@ class PurchaseController extends Controller
                 $nestedData['grand_total'] = number_format($purchase->grand_total, 2);
                 $nestedData['paid_amount'] = number_format($purchase->paid_amount, 2);
                 $nestedData['due'] = number_format($purchase->grand_total - $purchase->paid_amount, 2);
+                $nestedData['note'] = $purchase->note;
                 $nestedData['options'] = '<div class="btn-group">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.trans("file.action").'
                               <span class="caret"></span>
